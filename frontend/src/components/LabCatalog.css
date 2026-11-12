@@ -1,0 +1,316 @@
+.catalog-page {
+  min-height: 100svh;
+  background: #090f17;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.catalog-page ::selection {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+.catalog-wrap {
+  width: min(calc(100% - clamp(2rem, 8vw, 8rem)), 76rem);
+  margin-inline: auto;
+}
+
+.catalog-header {
+  background: #0d1722;
+  border-bottom: 1px solid #223343;
+}
+
+.catalog-header-inner {
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: .65rem;
+}
+
+.catalog-header .brand {
+  font-size: 1.25rem;
+  font-weight: 750;
+  letter-spacing: -.03em;
+  white-space: nowrap;
+}
+
+.catalog-profile {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  min-width: 0;
+  color: var(--muted);
+  font-size: .875rem;
+  overflow-wrap: anywhere;
+}
+
+.catalog-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  border: 1px solid #315753;
+  border-radius: 50%;
+  background: #142e32;
+  color: #8bf2e4;
+  font-weight: 700;
+}
+
+.catalog {
+  padding-block: clamp(1.75rem, 5vw, 4rem) 4rem;
+}
+
+.catalog-intro {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  min-height: 18rem;
+  overflow: hidden;
+  border: 1px solid #28434d;
+  border-radius: var(--radius);
+  background: radial-gradient(ellipse at 87% 46%, #16383d, transparent 65%), #101d29;
+}
+
+.catalog-intro-copy {
+  position: relative;
+  z-index: 1;
+  padding: clamp(1.5rem, 5vw, 4.25rem);
+  animation: catalog-intro-in 480ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.catalog-intro h1 {
+  font-size: clamp(2.45rem, 5.6vw, 5rem);
+  font-weight: 760;
+  line-height: 1.02;
+  letter-spacing: -.04em;
+}
+
+.catalog-intro p {
+  max-width: 30ch;
+  margin-top: 1.15rem;
+  color: #b3c8d2;
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  line-height: 1.55;
+}
+
+@keyframes catalog-intro-in {
+  from { opacity: .65; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.catalog-topology {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(.6rem, 2vw, 2rem);
+  min-height: 100%;
+  padding: 1rem clamp(1rem, 3vw, 3rem);
+  background-image: radial-gradient(#72e5cf35 1px, transparent 1px);
+  background-size: 20px 20px;
+  mask-image: linear-gradient(90deg, transparent, black 12%);
+}
+
+.catalog-topology::before {
+  content: '';
+  position: absolute;
+  inset-inline: 13%;
+  top: 50%;
+  border-top: 1px dashed #66d4c3;
+}
+
+.catalog-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 3rem;
+  padding: .3rem;
+  border: 1px solid #38626b;
+  border-radius: 8px;
+  background: #102730;
+  color: #c3e1e5;
+  font-size: clamp(.75rem, 1.2vw, .95rem);
+}
+
+.catalog-node-app {
+  min-height: 4.25rem;
+  border-color: #67d9c8;
+  color: #99f5e6;
+  background: #17403f;
+  font-weight: 700;
+}
+
+.catalog-library {
+  margin-top: clamp(2.25rem, 5vw, 3.75rem);
+}
+
+.catalog-library-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.catalog-library-heading h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  letter-spacing: -.025em;
+}
+
+.catalog-library-heading span {
+  color: var(--muted);
+  font-size: .875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lab-card, .catalog-empty {
+  border: 1px solid #263a4a;
+  border-radius: var(--radius);
+  background: #101a26;
+  overflow-wrap: anywhere;
+}
+
+.lab-card {
+  --lab-ink: #7ce3cf;
+  --lab-light: #1b514c;
+  overflow: hidden;
+}
+
+.lab-card-visual {
+  display: grid;
+  place-items: center;
+  min-height: 9rem;
+  padding: 1rem;
+  border-bottom: 1px solid #263a4a;
+  background: radial-gradient(ellipse at 70% 100%, var(--lab-light), transparent 85%), #0b151f;
+}
+
+.lab-card[data-topic='xss'] {
+  --lab-ink: #98c8ff;
+  --lab-light: #203e60;
+}
+
+.lab-card[data-topic='access'] {
+  --lab-ink: #f6cf92;
+  --lab-light: #4a3c2a;
+}
+
+.lab-card-code {
+  display: grid;
+  gap: .45rem;
+  width: min(100%, 16rem);
+  padding: .8rem 1rem;
+  border: 1px solid #415260;
+  border-radius: 8px;
+  background: #0a141e;
+  font-size: clamp(.76rem, 1.1vw, .9rem);
+  line-height: 1.5;
+}
+
+.lab-card-code code {
+  color: var(--lab-ink);
+  white-space: pre-wrap;
+}
+
+.lab-card-code code + code {
+  color: #a9bfcd;
+}
+
+.lab-card-body {
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.lab-card-category {
+  color: #8fd7d0;
+  font-size: .82rem;
+  font-weight: 650;
+}
+
+.lab-card h3 {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+
+.lab-card-category + h3 {
+  margin-top: .4rem;
+}
+
+.lab-card-description {
+  margin-top: .65rem;
+  color: #b2c3d1;
+  font-size: .94rem;
+  line-height: 1.55;
+}
+
+.catalog-empty {
+  padding: 1.25rem;
+  color: var(--muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lab-card {
+    transition: transform 180ms ease-out, border-color 180ms ease-out,
+      box-shadow 180ms ease-out;
+  }
+
+  .lab-card:hover {
+    transform: translateY(-5px);
+    border-color: color-mix(in srgb, var(--lab-ink) 70%, #263a4a);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--lab-light) 48%, transparent);
+  }
+}
+
+@media (max-width: 50rem) {
+  .catalog-intro {
+    min-height: 14rem;
+  }
+
+  .lab-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 36rem) {
+  .catalog-intro, .lab-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-topology {
+    min-height: 6.5rem;
+    mask-image: none;
+  }
+
+  .lab-card-visual {
+    min-height: 7.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-intro-copy {
+    animation: none;
+  }
+
+  .lab-card {
+    transition: none;
+  }
+
+  .lab-card:hover {
+    transform: none;
+  }
+}

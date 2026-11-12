@@ -1,0 +1,130 @@
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color-scheme: dark;
+  --background: #080f18;
+  --surface: #101b28;
+  --input: #0a131f;
+  --border: #27394a;
+  --text: #eef5fa;
+  --muted: #a7b8c8;
+  --accent: #43e3cf;
+  --accent-hover: #75f2e2;
+  --on-accent: #06221e;
+  --error: #ffb2bb;
+  --radius: 14px;
+  color: var(--text);
+  background: var(--background);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+h1, p { margin: 0; }
+button, input { font: inherit; }
+
+.login-screen {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: 1.5rem;
+  background: radial-gradient(ellipse at center, #122535, var(--background) 62%);
+}
+
+.login-content {
+  width: min(100%, 25rem);
+}
+
+.login-title {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+.login-title span, .brand span { color: var(--accent); }
+
+.login-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: clamp(1.25rem, 5vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 65px #0004;
+}
+
+.login-card label { font-size: 0.9rem; font-weight: 600; }
+
+.login-card input, .login-card button {
+  min-height: 3rem;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.login-card input {
+  padding: 0.6rem 0.8rem;
+  color: var(--text);
+  background: var(--input);
+  border: 1px solid var(--border);
+}
+
+.login-card button {
+  margin-top: 0.35rem;
+  border: 0;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-card button:hover:not(:disabled) { background: var(--accent-hover); }
+.login-card button:disabled { opacity: 0.6; cursor: default; }
+.login-card :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.form-error { color: var(--error); font-size: 0.9rem; }
+
+.binary-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--accent);
+}
+
+.binary-background span {
+  position: absolute;
+  top: 0;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font: 0.75rem/1 "IBM Plex Mono", monospace;
+  letter-spacing: 0.38em;
+  opacity: 0.19;
+  animation: binary-fall 26s linear infinite;
+}
+
+.binary-background span:nth-child(1) { left: 5%; animation-delay: -8s; }
+.binary-background span:nth-child(2) { left: 10%; animation-delay: -18s; }
+.binary-background span:nth-child(3) { left: 17%; animation-delay: -4s; }
+.binary-background span:nth-child(4) { left: 23%; animation-delay: -14s; }
+.binary-background span:nth-child(5) { right: 23%; animation-delay: -6s; }
+.binary-background span:nth-child(6) { right: 16%; animation-delay: -16s; }
+.binary-background span:nth-child(7) { right: 9%; animation-delay: -23s; }
+.binary-background span:nth-child(8) { right: 4%; animation-delay: -11s; }
+
+@keyframes binary-fall {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
+}
+
+@media (max-width: 38rem) {
+  .binary-background span:nth-child(n+3):nth-child(-n+6) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .binary-background span { animation: none; top: 12%; }
+  .binary-background span:nth-child(even) { top: 55%; }
+}

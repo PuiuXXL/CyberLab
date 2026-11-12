@@ -6,3 +6,5 @@ class LabResponse(BaseModel):
 
     id : int
     name : str
+    category: str | None
+    description: str | None

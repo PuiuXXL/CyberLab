@@ -1,4 +1,4 @@
-from sqlalchemy import Identity, String
+from sqlalchemy import Identity, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -10,5 +10,5 @@ class Lab(Base):
     id : Mapped[int] = mapped_column(Identity(), primary_key = True)
     name : Mapped[str] = mapped_column(String(200))
     image : Mapped[str] = mapped_column(String(255))
-
-    
+    category: Mapped[str | None] = mapped_column(String(100))
+    description: Mapped[str | None] = mapped_column(Text)

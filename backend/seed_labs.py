@@ -5,14 +5,30 @@ from app.db.connection import create_db_engine
 
 
 DEMO_LABS = [
-    {"name": "SQL Injection", "image": "cyberlab/sql-injection:demo"},
-    {"name": "Cross-Site Scripting", "image": "cyberlab/xss:demo"},
-    {"name": "Broken Access Control", "image": "cyberlab/access-control:demo"},
+    {
+        "name": "SQL Injection",
+        "image": "cyberlab/sql-injection:demo",
+        "category": "Baze de date",
+        "description": "Vezi cum o intrare neverificată poate modifica o interogare SQL.",
+    },
+    {
+        "name": "Cross-Site Scripting",
+        "image": "cyberlab/xss:demo",
+        "category": "Securitatea browserului",
+        "description": "Înțelege cum ajunge un script injectat să ruleze în browser.",
+    },
+    {
+        "name": "Broken Access Control",
+        "image": "cyberlab/access-control:demo",
+        "category": "Controlul accesului",
+        "description": "Explorează ce se întâmplă când aplicația nu verifică permisiunile.",
+    },
 ]
 
 INSERT_LAB = text("""
-    INSERT INTO labs (name, image)
-    SELECT CAST(:name AS varchar), CAST(:image AS varchar)
+    INSERT INTO labs (name, image, category, description)
+    SELECT CAST(:name AS varchar), CAST(:image AS varchar),
+           CAST(:category AS varchar), CAST(:description AS text)
     WHERE NOT EXISTS (
         SELECT 1 FROM labs WHERE image = CAST(:image AS varchar)
     )
