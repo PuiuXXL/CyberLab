@@ -6,7 +6,7 @@ The platform allows users to launch vulnerable environments, practice cybersecur
 
 Unlike traditional cybersecurity training platforms, CyberLab focuses not only on solving security challenges but also on **understanding, documenting, and reporting security vulnerabilities**, helping users develop practical skills used in real-world security assessments.
 
-## Key Features
+## Planned Features
 
 - **Containerized Security Labs** – Launch isolated, vulnerable environments on demand using Docker.
 - **Interactive Challenges** – Practice identifying, analyzing, and exploiting vulnerabilities in authorized lab environments.
@@ -45,6 +45,71 @@ CyberLab follows a full-stack architecture consisting of:
 - **Backend:** A FastAPI service responsible for authentication, laboratory orchestration, challenge validation, and report generation.
 - **Database:** PostgreSQL stores user information, laboratory configurations, active sessions, and assessment results.
 - **Docker Engine:** Runs and manages isolated laboratory environments.
+
+## Shared Platform and Isolated Lab Sessions
+
+CyberLab uses a shared platform database and separate Docker environments
+for individual laboratory sessions.
+
+### Shared Platform Database
+
+A single PostgreSQL database stores:
+
+- Users.
+- The laboratory catalog and Docker image references.
+- Laboratory session records.
+- Per-user laboratory completions and learning progress.
+- Assessment findings and reports as these features are implemented.
+
+The laboratory catalog is shared across users. Session records, progress,
+findings, and reports are associated with their respective users and are
+subject to access controls.
+
+Backend requests access this same database through separate SQLAlchemy
+sessions and transactions. A SQLAlchemy session does not create a separate
+database or a laboratory environment.
+
+### Laboratory Images and Instances
+
+Each laboratory is defined by a Docker image containing its initial
+environment, application, files, and intended vulnerabilities.
+
+Starting a laboratory creates a new container from the configured image
+for that laboratory session.
+
+If two users start the same laboratory, CyberLab creates two separate
+containers from the same image. Users do not share a running laboratory
+container, and changes made in one session must not affect another.
+
+Any writable volumes, databases, or supporting services required by a
+laboratory must also be isolated per session. Laboratory environments
+must not have access to the platform database or the Docker socket.
+
+A laboratory requiring multiple containers will receive a separate set
+of containers and an isolated network for each session.
+
+### Session Lifecycle
+
+The backend will:
+
+1. Resolve the selected laboratory from the shared catalog.
+2. Create an isolated environment and record its association with the
+   user and laboratory.
+3. Provide access to that environment.
+4. Track its lifecycle and enforce resource limits and expiration.
+5. Stop and remove the environment and its temporary resources when
+   the session ends or expires.
+
+Starting or stopping a session does not automatically mark a laboratory
+as completed. Completion is recorded separately after challenge validation.
+
+### Development Scope
+
+The initial implementation will use one predefined local user.
+Authentication and multi-user access controls are deferred.
+
+The shared database and isolated laboratory session model remain the
+target architecture as multi-user support is introduced.
 
 ## Security Considerations
 
